@@ -1,0 +1,10 @@
+#include <iostream> //for testing
+using namespace std; 
+
+Dictionary::Dictionary(){
+
+} 
+
+Entry Dictionary::search() {
+
+} 
