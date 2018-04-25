@@ -1,0 +1,6 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource prefix="/forms">
+    <file>forms/mainwindow.ui</file>
+    <file>forms/entries.txt</file>
+</qresource>
+</RCC>
