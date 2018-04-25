@@ -1,0 +1,16 @@
+#include<iostream>
+#include<Entry.h>
+
+class EntryArrayP
+{
+private:
+  int numEntries;
+  Entry ** Arr;
+public:
+  EntryArrayP();
+  EntryArrayP(EntryArrayP & source);
+  EntryArrayP(ifstream & input);
+  operator[](int index);
+  operator[](const EntryArrayP & source);
+  Entry copyEntry(Entry & source);
+};
