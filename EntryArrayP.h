@@ -1,5 +1,8 @@
 #include<iostream>
 #include<Entry.h>
+#include <fstream>
+#include <string>
+#include "Entry.h"
 
 class EntryArrayP
 {
@@ -12,7 +15,7 @@ public:
   //copy constructor
   EntryArrayP(EntryArrayP & source);
   //file constructor
-  EntryArrayP(ifstream & input);
+  EntryArrayP(string fileName);
   //index operator, returns the Entry of the index
   EntryArrayP & operator[](int index);
   //assignment operator
