@@ -11,17 +11,20 @@ class Entry{
 
  public:
   Entry();
+  Entry(string, string);
   Entry(const Entry &);
-  Entry(ifstream &);
-  operator =(const Entry &);
 
   //check syntax of this one below
- 
-  string getTitle();
-  string getDef();
+  Entry(ifstream &); 
+
+  Entry & operator =(const Entry &); 
+  string getTitle() {return title;}
+  string getDef(){return def;}
   int setTitle(string); //to see if the change is successful 
   int setDef(string);  // ^^
-  void display();
+
+  //testing on terminal - take out later 
+  void display(); //OpenGL - look at lab10 (file: proto-ui.cpp) - put in driver file
 };
 
 #endif
