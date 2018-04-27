@@ -9,20 +9,21 @@ class QTextEdit;
 
 
 
-
+namespace Ui{
+class MainWindow;
+}
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
     explicit MainWindow(QWidget *parent = 0);
-
+    ~MainWindow();
 private slots:
     void search_clicked();
 private:
-    QPushButton *ui_searchButton;
-    QTextEdit *ui_displayWin;
-    QLineEdit *ui_searchBar;
+    QString keyword;
+    Ui::MainWindow *ui;
 };
 
 #endif // MAINWINDOW_H

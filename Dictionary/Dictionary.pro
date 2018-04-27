@@ -4,16 +4,20 @@
 #
 #-------------------------------------------------
 
-QT += core gui
+QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-SOURCES += main.cpp mainwindow.cpp
+TARGET = mainwindow
+TEMPLATE = app
+
+
+SOURCES += main.cpp\
+        mainwindow.cpp
 
 HEADERS  += mainwindow.h
 
-RESOURCES += \
-    dictionary.qrc
+FORMS    += mainwindow.ui
 
-target.path = $$[QT_INSTALL_EXAMPLES]/uitools/dictionary
-INSTALLS += target
+
+

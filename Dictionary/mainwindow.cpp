@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QString>
 #include <QFile>
 #include<QLineEdit>
 #include <QMessageBox>
@@ -8,37 +9,24 @@
 #include <QTextStream>
 #include <QtUiTools/QUiLoader>
 #include <QVBoxLayout>
+#include <QIODevice>
 
+void MainWindow::search_clicked(){
 
-static QWidget *loadUi(QWidget *parent){
-    QFile uifile(":/forms/mainwindow.ui");
-    uifile.open(QIODevice::ReadOnly);
+    ui->textBrowser->append(keyword);
 
-    QUiLoader loader;
-    return loader.load(&uifile, parent);
-}
-static QString loadFile(){
-    QFile inputFile(":/forms/entries.txt");
-    inputFile.open(QIODevice::ReadOnly);
-    QTextStream in(&inputFile);
-    in.setCodec("UTF-8");
-    return in.readAll();
 }
 
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent)
+    QMainWindow(parent),
+   ui(new Ui::MainWindow)
 {
-    QWidget *myWindow = loadUi(this);
-    ui_searchButton = findChild<QPushButton*>("Search");
-    ui_searchBar = findChild<QLineEdit*>("lineEdit");
-    ui_displayWin = findChild<QTextEdit*>("lineEdit");
-
-    ui_displayWin->setText(loadFile());
-
-    QVBoxLayout *layout = new QVBoxLayout;
-    layout-> addWidget(myWindow);
-    setLayout(layout);
-
-    setWindowTitle(tr("Dictionary"));
-
+    ui->setupUi(this);
+    ui->pushButton->setText("Search");
+    keyword = ui->lineEdit->text();
+    connect (ui->pushButton, SIGNAL(clicked()),this,SLOT(search_clicked()));
+}
+MainWindow::~MainWindow()
+{
+    delete ui;
 }
