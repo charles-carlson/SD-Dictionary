@@ -22,7 +22,7 @@ int main(){
   test.display(cout);
   
   cout <<"read in test.txt?"<< endl;
-  Entry file("test.txt");
+  Entry file("test.txt","outTest.txt");
   file.display(cout);
 
   //write into file
