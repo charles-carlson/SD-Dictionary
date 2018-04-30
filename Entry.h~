@@ -3,7 +3,6 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-using namespace std;
 
 class Entry{
  protected:
@@ -15,8 +14,8 @@ class Entry{
   Entry(string, string);
   Entry(const Entry &);
 
-  Entry(const char *);
-  //up(const char *);
+  //check syntax of this one below
+  Entry(ifstream &); //read in file - correct way? 
 
   Entry & operator =(const Entry &); 
   string getTitle() {return title;}
@@ -24,7 +23,8 @@ class Entry{
   int setTitle(string); //to see if the change is successful 
   int setDef(string);  // ^^
 
-  void display(ostream & ostr)const; //OpenGL - look at lab10 (file: proto-ui.cpp) - put in driver file
+  //testing on terminal - take out later 
+  void display(); //not displaying in terminal, displaying GUI - diff way?
 };
 
 #endif

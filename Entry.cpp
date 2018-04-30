@@ -17,7 +17,7 @@ Entry::Entry(const Entry & arg){
 }
 
 //read in file
-Entry::Entry(const char * filename){
+Entry::Entry(const char* filename){
   ifstream g(filename);
   g >> title;
   g.get();
@@ -39,6 +39,7 @@ Entry::up(const char * filename){
 void Entry::display(ostream & ostr)const{
   ostr << "Entry: " << title << "\n Definition: " << def << endl;
 
+}
 int Entry::setTitle(string t) {
   title = t; 
   return 1;

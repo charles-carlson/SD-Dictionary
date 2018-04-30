@@ -1,4 +1,6 @@
 #include<iostream>
+#include"Entry.h"
+#include"EntryArrayP.h"
 //default constructor
 EntryArrayP::EntryArrayP()
 {
@@ -6,38 +8,67 @@ EntryArrayP::EntryArrayP()
   Arr=0;
 }
 //copy constructor
-EntryArrayP::EntryArrayP(EntryArrayP & source)
-{
-  if(Arr)
-    {
-      for(int i=0; i<numEntries; i++)
-	{
-	  delete Arr[i];
-	}
-    }
-  
+EntryArrayP::EntryArrayP(const EntryArrayP & source)
+{  
   numEntries=source.numEntries;
+  Arr = new Entry * [numEntries];
   for(int i = 0; i<numEntries; i++)
     {
-      Arr*[i]=source.Arr[i];
+      Arr[i]=new Entry;
+      Arr[i]=source.Arr[i];
     }
 }
 
-}
 //file constructor
 EntryArrayP::EntryArrayP(string fileName)
 {
   ifstream g;
   g.open(fileName);
   g>>numEntries;
-  Arr=new Entry[numEntries];
+  Arr=new Entry*[numEntries];
   for (int i =0; i< numEntries; i++)
   {
-    Arr[i]=new Entry(source);
+    Arr[i]=new Entry((fileName.c_str()));
   }
 }
 
-Entry EntryArrayP::operator[](int index)
+Entry & EntryArrayP::operator[](int index)
 {
-  return Arr[i];
+  return *Arr[index];
+}
+
+EntryArrayP & EntryArrayP::operator=(const EntryArrayP & source)
+{
+  for(int i=0;i<numEntries;i++)
+    {
+      delete Arr[i];
+      Arr[i]=NULL;
+    }
+  
+  if (Arr)
+    delete Arr;
+  numEntries=source.numEntries;
+  Arr = new Entry * [numEntries];
+  for(int i = 0; i<numEntries; i++)
+    {
+      Arr[i]=new Entry;
+      Arr[i]=source.Arr[i];
+    }
+  return *this;
+}
+
+int EntryArrayP::get_size()
+{
+  return numEntries;
+}  
+
+void EntryArrayP::display(ostream & ostr)const
+{
+  for(int i=0; i<numEntries; i++)
+    {
+      ostr<< i << "\t";
+      Arr[i]->display(ostr);
+      ostr <<endl;
+    }
+  return;
 }
