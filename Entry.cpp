@@ -39,14 +39,6 @@ Entry::up(const char * filename){
 void Entry::display(ostream & ostr)const{
   ostr << "Entry: " << title << "\n Definition: " << def << endl;
 
-
-Entry::Entry(ifstream & filename){ //help
-}
-
-void Entry::display(){
-  cout << "Entry: " << title << "\t Definition: " << def << endl;
-}
-
 int Entry::setTitle(string t) {
   title = t; 
   return 1;

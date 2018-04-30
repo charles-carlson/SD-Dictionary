@@ -23,11 +23,7 @@ class Entry{
   int setTitle(string); //to see if the change is successful 
   int setDef(string);  // ^^
 
-  //testing on terminal - take out later 
-
   void display(ostream & ostr)const; //OpenGL - look at lab10 (file: proto-ui.cpp) - put in driver file
-
-  void display(); //not displaying in terminal, displaying GUI - diff way?
 };
 
 #endif
