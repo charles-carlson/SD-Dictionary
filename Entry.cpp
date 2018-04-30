@@ -16,11 +16,28 @@ Entry::Entry(const Entry & arg){
   def = arg.def;
 }
 
-Entry::Entry(ifstream & filename){ //help
+
+Entry::Entry(const char * filename1, const char * filename2){
+//read in file
+  ifstream g(filename1);
+  g >> title;
+  g.get();
+  cout << title<< endl;
+  getline(g, def);
+  g.get();
+ 
+  g.close();
+
+//write out to a file 
+  ofstream f(filename2);
+  f << title << endl;
+  f << def << endl;
+  f.close(); 
+
 }
 
-void Entry::display(){
-  cout << "Entry: " << title << "\t Definition: " << def << endl;
+void Entry::display(ostream & ostr)const{
+  ostr << "Entry: " << title << "\n Definition: " << def << endl;
 }
 
 int Entry::setTitle(string t) {
