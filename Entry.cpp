@@ -15,6 +15,7 @@ Entry::Entry(const Entry & arg){
   title = arg.title;
   def = arg.def;
 }
+<<<<<<< HEAD
 //read in file
 Entry::Entry(const char * filename){
   ifstream g(filename);
@@ -37,6 +38,14 @@ Entry::up(const char * filename){
 */
 void Entry::display(ostream & ostr)const{
   ostr << "Entry: " << title << "\n Definition: " << def << endl;
+=======
+
+Entry::Entry(ifstream & filename){ //help
+}
+
+void Entry::display(){
+  cout << "Entry: " << title << "\t Definition: " << def << endl;
+>>>>>>> 532e54fdf50abd51157cd5819a3a499d371c9fa7
 }
 
 int Entry::setTitle(string t) {
