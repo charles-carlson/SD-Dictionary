@@ -14,8 +14,8 @@ class Entry{
   Entry(string, string);
   Entry(const Entry &);
 
-  //check syntax of this one below
-  Entry(ifstream &); //read in file - correct way? 
+  Entry(const char *);
+  //up(const char *);
 
   Entry & operator =(const Entry &); 
   string getTitle() {return title;}
@@ -23,8 +23,7 @@ class Entry{
   int setTitle(string); //to see if the change is successful 
   int setDef(string);  // ^^
 
-  //testing on terminal - take out later 
-  void display(); //not displaying in terminal, displaying GUI - diff way?
+  void display(ostream & ostr)const; //OpenGL - look at lab10 (file: proto-ui.cpp) - put in driver file
 };
 
 #endif
