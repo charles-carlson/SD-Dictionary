@@ -7,5 +7,7 @@ int main()
 {
   Map map("miniDict.txt");
 
+  map.display(cout);
+
   return 0;
 }

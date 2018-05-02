@@ -2,6 +2,16 @@
 #include"entryMap.h"
 //#include<algorithim>
 using namespace std;
+bool all_caps(string str)
+{
+  int len= str.length();
+  for(int i=0; i<len; i++)
+    {
+    if(islower(str[i]))
+      return 0;
+    }
+  return 1;
+}
 
 Map::Map(const string fileName)
 {
@@ -13,22 +23,18 @@ Map::Map(const string fileName)
     {
       bool done;
       getline(g, title);
-      if(std::any_of(std::begin(title), std::end(title), [](char c)
-		{return (islower(c));}))
+      if(all_caps(title))
 	{
-	  done=true;
+	  done=false;
 	}
       else// if(!all caps)
 	{
 	  def.append(oldTitle);
 	  oldTitle=title;
-	  done=false;
+	  done=true;
 	}
       if(done)
 	entries.insert(StrStrpair(title, def));
-      i++;
-      if(i<10)
-	cout << title << '&'<< endl <<  def << endl<<endl;
     }
 	  
   /*
@@ -79,8 +85,13 @@ Map::Map(const string fileName)
 
 
 
-/*
-void Map::display(ostream & ostr, string word) const
+
+void Map::display(ostream & ostr) const
 {
-  findPrefix(map, searchFor);
-*/
+  for(auto it = entries.cbegin(); it != entries.cend();++it)
+    {
+      ostr<< it->first<<endl<< '&' << endl
+	  <<it->second<< endl<< endl;
+    }
+}
+  //findPrefix(map, searchFor);

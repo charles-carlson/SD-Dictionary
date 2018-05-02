@@ -18,8 +18,9 @@ class Map
   Map(string fileName);
 
   //user enters word, this spits the word and def back to the ostream
+  
+  void display(ostream & ostr)const;
   /*
-  void display(ostream & ostr, string word)const;
   void add (
   */
   
