@@ -3,9 +3,11 @@
 
 int main(int argc, char *argv[])
 {
+    Q_INIT_RESOURCE(Dictionary);
+
     QApplication a(argc, argv);
     MainWindow w;
-    w.setWindowTitle("Dictionary");
+    w.setWindowTitle("CM^3 Dictionary");
     w.setStyleSheet("QMainWindow {background: ' light blue';}");
     w.show();
 

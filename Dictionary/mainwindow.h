@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include <QMainWindow>
-#include "EntryArrayP.h
+//#include "EntryArrayP.h
 class QLineEdit;
 class QPushButton;
 class QTextEdit;
@@ -22,7 +22,7 @@ public:
     ~MainWindow();
 private slots:
     void search_clicked();
-    void displayEntry(QString);
+    void displayEntry(int);
 private:
     QString keyword;
     Ui::MainWindow *ui;
