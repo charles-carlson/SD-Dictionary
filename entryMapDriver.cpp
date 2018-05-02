@@ -5,7 +5,7 @@ using namespace std;
 
 int main()
 {
-  Map map("dictionary.txt");
+  Map map("miniDict.txt");
 
   return 0;
 }
