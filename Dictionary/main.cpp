@@ -1,12 +1,18 @@
 #include "mainwindow.h"
 #include <QApplication>
+#include <QCoreApplication>
+#include <QFile>
+#include <QString>
+#include <QDebug>
+#include <QTextStream>
+
 
 int main(int argc, char *argv[])
 {
-    Q_INIT_RESOURCE(Dictionary);
-
     QApplication a(argc, argv);
+
     MainWindow w;
+    create_map();
     w.setWindowTitle("CM^3 Dictionary");
     w.setStyleSheet("QMainWindow {background: ' light blue';}");
     w.show();
