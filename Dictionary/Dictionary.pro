@@ -11,17 +11,18 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = mainwindow
 TEMPLATE = app
-
+CONFIG += c++11
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    mapentry.cpp
 
 HEADERS  += mainwindow.h
 
 FORMS    += mainwindow.ui
 
 RESOURCES += \
-    mainwindow.qrc
+    dictionary.qrc
 
 
 

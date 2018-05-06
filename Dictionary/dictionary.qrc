@@ -1,5 +1,6 @@
-<!DOCTYPE RCC><RCC version="1.0">
-<qresource>
-    <file>mainwindow.ui</file>
-</qresource>
+<RCC>
+    <qresource prefix="/Dictionary">
+        <file>dict.txt</file>
+        <file>Dictionary.pro</file>
+    </qresource>
 </RCC>
