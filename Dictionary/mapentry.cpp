@@ -13,12 +13,12 @@ void print_map(std::map<std::string,std::string>& m)
 {
   cout << '{';
   for(auto& p: m)
-    cout << p.first<<':'<<'\n'<<p.second<< "\n\n\n";
+    cout << p.first<<':'<<'\n'<<"DEFINITION"<<p.second<< "\n\n\n";
   cout << "}\n";
 }
 void MainWindow::create_map()
 {
-  ifstream g("/home/users/carlso13/Dictionary/Dictionary/dict.txt");
+  ifstream g("/home/users/daly2/Dictionary/newDict.txt");
   if(!g){
       cerr << "Not found"<<endl;
   }
@@ -45,28 +45,29 @@ std::string MainWindow::search_map(const std::string intake){
   }
   else{
       string str;
-      int oldDist=0;
-      for(auto const& iter : map1)
+      int oldDistance=0;
+      for(auto& p : map1)
       {
-          int dist=0;
-          if(iter.first.length()==intake.length())
+          int distance=0;
+          if(p.first.length()==intake.length())
           {
               for(unsigned int i=0; i<intake.length(); i++)
               {
-                  if(intake[i]!=iter.first[i])
-                      dist++;
+                  if(intake[i]!=p.first[i])
+                      distance++;
               }
 
           }
-          if(dist<oldDist)
+          if(distance<=oldDistance)
           {
-              oldDist=dist;
-              str=iter.first;
+              oldDistance=distance;
+              str=p.first;
           }
       }
 
-   std::string error = "entry not found, check spelling\n"
-                       "did you mean:";
+   std::string error = intake;
+   error.append(" not found, check spelling\n"
+                       "did you mean:");
    error.append(str);
    return error;
   }
