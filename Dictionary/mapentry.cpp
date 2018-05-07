@@ -45,16 +45,16 @@ std::string MainWindow::search_map(const std::string intake){
   }
   else{
       string str;
-      int oldDistance=0;
+      int oldDistance=100;
       for(auto& p : map1)
       {
-          int distance=0;
+          int distance=100;
           if(p.first.length()==intake.length())
           {
               for(unsigned int i=0; i<intake.length(); i++)
               {
-                  if(intake[i]!=p.first[i])
-                      distance++;
+                  if(intake[i]==p.first[i])
+                      distance--;
               }
 
           }
@@ -67,7 +67,7 @@ std::string MainWindow::search_map(const std::string intake){
 
    std::string error = intake;
    error.append(" not found, check spelling\n"
-                       "did you mean:");
+                       "did you mean: ");
    error.append(str);
    return error;
   }
