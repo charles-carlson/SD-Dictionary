@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     MainWindow w;
-    create_map();
+
     w.setWindowTitle("CM^3 Dictionary");
     w.setStyleSheet("QMainWindow {background: ' light blue';}");
     w.show();

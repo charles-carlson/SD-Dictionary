@@ -2,5 +2,7 @@
     <qresource prefix="/Dictionary">
         <file>dict.txt</file>
         <file>Dictionary.pro</file>
+        <file>m_glass.jpg</file>
+        <file>m_glass2.png</file>
     </qresource>
 </RCC>
