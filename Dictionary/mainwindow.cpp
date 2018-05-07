@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QString>
 #include <QFile>
-#include<QLineEdit>
+#include <QLineEdit>
 #include <QPushButton>
 #include <QTextEdit>
 #include <QTextStream>
