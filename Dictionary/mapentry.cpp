@@ -40,8 +40,30 @@ std::string MainWindow::search_map(const std::string intake){
     return iter->second;
   }
   else{
+      string str;
+      int oldDist=0;
+      for(auto const& iter : map1)
+      {
+          int dist=0;
+          if(iter.first.length()==intake.length())
+          {
+              for(unsigned int i=0; i<intake.length(); i++)
+              {
+                  if(intake[i]!=iter.first[i])
+                      dist++;
+              }
 
-   std::string error = "entry not found, check spelling\n";
+          }
+          if(dist<oldDist)
+          {
+              oldDist=dist;
+              str=iter.first;
+          }
+      }
+
+   std::string error = "entry not found, check spelling\n"
+                       "did you mean:";
+   error.append(str);
    return error;
   }
 }
