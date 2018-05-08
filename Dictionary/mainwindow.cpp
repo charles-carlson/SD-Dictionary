@@ -15,7 +15,8 @@ void MainWindow::search_clicked(){
     QString searchVal = ui->lineEdit->text();
 
     std::string str = searchVal.toStdString();
-    std::string defn = search_map(str);
+    //std::string defn = search_map(str);
+    std::string defn = search_multimap(str);
 
     QString find_defn = QString::fromStdString(defn);
     ui->textEdit->append(find_defn);
@@ -30,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
     create_map();
     ui->setupUi(this);
 
-    ui->pushButton->setIcon(QPixmap("/home/users/carlso13/Dictionary/Dictionary/m_glass2.png"));
+    ui->pushButton->setIcon(QPixmap("/home/users/daly2/Dictionary/Dictionary/m_glass2.png"));
     ui->pushButton->setIconSize(QSize(20,20));
     ui->textEdit->setReadOnly(true);
     ui->pushButton->setText("Search");

@@ -39,11 +39,14 @@ private slots:
     void search_clicked();
 
     std::string search_map(const std::string);
+    std::string search_multimap(const std::string);
+    std::string hamming_sug(const std::string);
+
 private:
 
     Ui::MainWindow *ui;
 
-    std::map<std::string,std::string> map1;
+    std::multimap<std::string,std::string> map1;
 };
 
 #endif // MAINWINDOW_H
