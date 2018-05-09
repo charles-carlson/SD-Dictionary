@@ -28,4 +28,4 @@ Entry.o: Entry.cpp Entry.h
 	g++ -ggdb -Wall -std=c++11 -c Entry.cpp 
 
 clean:
-	rm -f *.o 
+	rm -f *.o *.*~ *.*#
