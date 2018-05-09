@@ -14,7 +14,7 @@
 void MainWindow::search_clicked(){
 
     ui->textEdit_2->clear();
-    ui->textEdit->clear();
+
     QString searchVal = ui->lineEdit->text();
 
     std::string str = searchVal.toStdString();
@@ -34,7 +34,7 @@ void MainWindow::search_clicked(){
 }
 void MainWindow::return_clicked(){
 
-    ui->textEdit->clear();
+
     ui->textEdit_2->clear();
 
     std::string str = history[(maxSize-1) - count];
@@ -71,6 +71,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->lineEdit->setStyleSheet("border: 1px solid;"
                                 "border-radius:5px;"
                                 "background-color: palette(base);");
+    ui->lineEdit->setPlaceholderText("Search...");
     ui->textEdit->setStyleSheet("border: 1px solid;"
                                 "border-radius:5px;"
                                 "background-color: palette(base);");

@@ -103,7 +103,7 @@ std::string MainWindow::search_map(const std::string intake){
   else{
    //std::string error = "entry not found, check spelling.\n";
 
-      string str = hamming_sug(intake);
+   std::string str = hamming_sug(intake);
    std::string error = intake;
    error.append(" not found, check spelling\n"
                        "did you mean: ");
@@ -112,8 +112,8 @@ std::string MainWindow::search_map(const std::string intake){
   }
 }
 
-std::string MainWindow::hamming_sug(const string intake){
-    string str;
+std::string MainWindow::hamming_sug(const std::string intake){
+    std::string str;
     int oldDistance=100;
     for(auto& p : map1)
     {
