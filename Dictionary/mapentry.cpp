@@ -12,10 +12,12 @@ using namespace std;
 
 void print_map(std::multimap<std::string,std::string>& m)
 {
+
   cout << '{';
   for(auto& p: m)
     cout << p.first<<':'<<'\n'<<"DEFINITION"<<p.second<< "\n\n\n";
   cout << "}\n";
+
 }
 void MainWindow::create_map()
 {
@@ -27,9 +29,9 @@ void MainWindow::create_map()
 
   while(g.good())
     {
-      getline(g,title, '&');
-      cerr << title<<endl;
-      getline(g,def,'&');
+      getline(g,title, '#');
+      //cerr << title<<endl;
+      getline(g,def,'#');
       map1.insert(pair<string, string>(title, def));
     }
   g.close();
@@ -38,6 +40,7 @@ void MainWindow::create_map()
 
 
 std::string MainWindow::search_multimap(const std::string intake){
+    toupper(intake[0]);
     string defn;
     multimap<string,string>::const_iterator it = map1.lower_bound(intake);
     multimap<string,string>::const_iterator it2 = map1.upper_bound(intake);
@@ -121,10 +124,11 @@ std::string MainWindow::hamming_sug(const string intake){
             }
 
         }
-        if(distance<=oldDistance)
+        if(distance<=oldDistance-(intake.length()-1))
         {
-            oldDistance=distance;
-            str=p.first;
+            //oldDistance=distance;
+            str.append(p.first);
+            str.append(", ");
         }
     }
     return str;
