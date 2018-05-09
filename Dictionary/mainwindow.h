@@ -31,7 +31,8 @@ class MainWindow : public QMainWindow
 
     Q_OBJECT
 
-    int index = 0;
+    int maxSize = 0;
+    int count = 1;
 
 public:
     void create_map();

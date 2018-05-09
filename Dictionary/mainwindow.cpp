@@ -1,3 +1,4 @@
+/*  /home/users/carlso13/Dictionary/Dictionary/  */
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QString>
@@ -12,16 +13,21 @@
 
 void MainWindow::search_clicked(){
 
+    ui->textEdit_2->clear();
     ui->textEdit->clear();
     QString searchVal = ui->lineEdit->text();
 
     std::string str = searchVal.toStdString();
-    history.push_back(str);
-    index++;
+
     std::string defn = search_multimap(str);
+    QString find_str = QString::fromStdString(str);
     QString find_defn = QString::fromStdString(defn);
 
-    ui->textEdit->append(find_defn);
+    history.push_back(str);
+    maxSize++;
+
+    ui->textEdit->append(find_str);
+    ui->textEdit_2->append(find_defn);
 
 
 
@@ -29,11 +35,18 @@ void MainWindow::search_clicked(){
 void MainWindow::return_clicked(){
 
     ui->textEdit->clear();
-    std::string str = history[index];
-    std::string defn = search_map(str);
+    ui->textEdit_2->clear();
+
+    std::string str = history[(maxSize-1) - count];
+    count++;
+    std::string defn = search_multimap(str);
 
     QString find_defn = QString::fromStdString(defn);
-    ui->textEdit->append(find_defn);
+    QString find_str = QString::fromStdString(str);
+
+    ui->textEdit->append(find_str);
+    ui->textEdit_2->append(find_defn);
+
 
 }
 

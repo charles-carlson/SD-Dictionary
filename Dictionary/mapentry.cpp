@@ -21,7 +21,7 @@ void print_map(std::multimap<std::string,std::string>& m)
 }
 void MainWindow::create_map()
 {
-  ifstream g("/home/users/daly2/Dictionary/newDict2.txt");
+  ifstream g("/home/users/carlso13/Dictionary/Dictionary/dict.txt");
   if(!g){
       cerr << "Not found"<<endl;
   }
@@ -30,10 +30,7 @@ void MainWindow::create_map()
   while(g.good())
     {
       getline(g,title, '#');
-<<<<<<< HEAD
-=======
-      //cerr << title<<endl;
->>>>>>> 8caeb71cc15134feba94221f60e2aaf6759c6224
+
       getline(g,def,'#');
       map1.insert(pair<string, string>(title, def));
     }
@@ -43,12 +40,13 @@ void MainWindow::create_map()
 
 
 std::string MainWindow::search_multimap(const std::string intake){
-    toupper(intake[0]);
+    //toupper(intake[0]);
     string defn;
     multimap<string,string>::const_iterator it = map1.lower_bound(intake);
     multimap<string,string>::const_iterator it2 = map1.upper_bound(intake);
     if(map1.find(intake)==map1.end())
     {
+
         string str = hamming_sug(intake);
         std::string error = intake;
         error.append(" not found, check spelling\n"
@@ -67,7 +65,7 @@ std::string MainWindow::search_multimap(const std::string intake){
             defn.append(to_string(i));
             defn.append(it->second);
             it++;
-            it++;
+            //it++;
             /*
              * The second it++ returns the correct definions, but out of order,
              * with only one it returns the definitions in the correct order,
