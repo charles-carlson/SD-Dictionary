@@ -45,7 +45,7 @@ std::string MainWindow::search_map(const std::string intake){
   }
   else{
 
-   std::string error = "entry not found, check spelling\n";
+   std::string error = "entry not found, check spelling.\n";
    return error;
   }
 }

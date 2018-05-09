@@ -9,8 +9,8 @@
 #include<map>
 #include<utility>
 #include <iostream>
-
-
+#include <list>
+#include <vector>
 
 
 class QLineEdit;
@@ -31,19 +31,22 @@ class MainWindow : public QMainWindow
 
     Q_OBJECT
 
+    int index = 0;
+
 public:
     void create_map();
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 private slots:
     void search_clicked();
-
+    void return_clicked();
     std::string search_map(const std::string);
 private:
 
     Ui::MainWindow *ui;
-
     std::map<std::string,std::string> map1;
+    std::vector <std::string> history;
+
 };
 
 #endif // MAINWINDOW_H
