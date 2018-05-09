@@ -16,18 +16,21 @@ void MainWindow::search_clicked(){
     QString searchVal = ui->lineEdit->text();
 
     std::string str = searchVal.toStdString();
+    history.push_back(str);
+    index++;
     std::string defn = search_map(str);
 
     QString find_defn = QString::fromStdString(defn);
+
     ui->textEdit->append(find_defn);
 
-    history.push_back(str);
+
 
 }
 void MainWindow::return_clicked(){
 
-
-    std::string str = history[index-1];
+    ui->textEdit->clear();
+    std::string str = history[index];
     std::string defn = search_map(str);
 
     QString find_defn = QString::fromStdString(defn);

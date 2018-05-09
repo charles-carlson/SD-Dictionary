@@ -26,13 +26,12 @@ void MainWindow::create_map()
 
   while(g.good())
     {
-      getline(g,title, '&');
-      cerr << title<<endl;
-      getline(g,def,'&');
+      getline(g,title, '#');
+      getline(g,def,'#');
       map1.insert(pair<string, string>(title, def));
     }
   g.close();
-  //print_map(map1);
+
 }
 
 std::string MainWindow::search_map(const std::string intake){
