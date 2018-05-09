@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QString>
 #include <QFile>
-#include<QLineEdit>
+#include <QLineEdit>
 #include <QPushButton>
 #include <QTextEdit>
 #include <QTextStream>
@@ -16,9 +16,14 @@ void MainWindow::search_clicked(){
     QString searchVal = ui->lineEdit->text();
 
     std::string str = searchVal.toStdString();
+
     history.push_back(str);
     index++;
     std::string defn = search_map(str);
+
+
+    std::string defn = search_multimap(str);
+
 
     QString find_defn = QString::fromStdString(defn);
 
