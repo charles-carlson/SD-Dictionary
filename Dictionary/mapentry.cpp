@@ -21,7 +21,7 @@ void print_map(std::multimap<std::string,std::string>& m)
 }
 void MainWindow::create_map()
 {
-  ifstream g("/home/users/carlso13/Dictionary/Dictionary/dict.txt");
+  ifstream g("/home/users/daly2/Dictionary/Dictionary/dict.txt");
   if(!g){
       cerr << "Not found"<<endl;
   }
@@ -39,8 +39,8 @@ void MainWindow::create_map()
 }
 
 
-std::string MainWindow::search_multimap(const std::string intake){
-    //toupper(intake[0]);
+std::string MainWindow::search_multimap(std::string intake){
+    intake[0]=toupper(intake[0]);
     string defn;
     multimap<string,string>::const_iterator it = map1.lower_bound(intake);
     multimap<string,string>::const_iterator it2 = map1.upper_bound(intake);
@@ -114,24 +114,43 @@ std::string MainWindow::search_map(const std::string intake){
 
 std::string MainWindow::hamming_sug(const string intake){
     string str;
+    string oldWord;
     int oldDistance=100;
     for(auto& p : map1)
     {
         int distance=100;
-        if(p.first.length()==intake.length())
+        if(p.first.length())//==intake.length())
         {
             for(unsigned int i=0; i<intake.length(); i++)
             {
                 if(intake[i]==p.first[i])
                     distance--;
             }
+            if(p.first.length()>intake.length())
+                distance+=p.first.length()-intake.length();
 
         }
-        if(distance<=oldDistance-(intake.length()-1))
+        if(distance<oldDistance)//-(intake.length()-1))
         {
-            //oldDistance=distance;
-            str.append(p.first);
-            str.append(", ");
+            str.clear();
+            str=p.first;
+            oldWord=p.first;
+            oldDistance=distance;
+            /*
+                for(int i=0;i<100-oldDistance;i++)
+                {
+                    if(strap)
+                }
+                */
+        }
+        if(oldDistance==distance)
+        {
+            if(p.first!=oldWord)
+            {
+                str.append(", ");
+                str.append(p.first);
+                oldWord=p.first;
+            }
         }
     }
     return str;

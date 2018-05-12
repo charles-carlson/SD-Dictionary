@@ -1,4 +1,4 @@
-/*  /home/users/carlso13/Dictionary/Dictionary/  */
+/*  /home/users/daly2/Dictionary/Dictionary/  */
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QString>
@@ -10,6 +10,8 @@
 #include <QStyle>
 #include <QAbstractButton>
 #include <vector>
+
+//std::string
 
 void MainWindow::search_clicked(){
 
@@ -57,10 +59,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->setupUi(this);
 
-    ui->pushButton->setIcon(QPixmap("/home/users/carlso13/Dictionary/Dictionary/m_glass2.png"));
+    ui->pushButton->setIcon(QPixmap("Dictionary/m_glass2.png"));// /home/users/daly2/Dictionary/Dictionary/
     ui->pushButton->setIconSize(QSize(20,20));
 
-    ui->toolButton->setIcon(QPixmap("/home/users/carlso13/Dictionary/Dictionary/firefox_return.png"));
+    ui->toolButton->setIcon(QPixmap("/home/users/daly2/Dictionary/Dictionary/firefox_return.png"));
     ui->toolButton->setIconSize(QSize(100,100));
 
     ui->textEdit->setReadOnly(true);
