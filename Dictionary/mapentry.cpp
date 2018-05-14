@@ -7,6 +7,9 @@
 #include <iostream>
 #include<algorithm>
 #include "mainwindow.h"
+#include <unistd.h>
+#include <sys/types.h>
+#include <pwd.h>
 
 using namespace std;
 
@@ -21,7 +24,11 @@ void print_map(std::multimap<std::string,std::string>& m)
 }
 void MainWindow::create_map()
 {
-  ifstream g("/home/users/daly2/Dictionary/Dictionary/dict.txt");
+  std::string homedir;
+  (homedir = getenv("HOME"));
+  std::string dict_path=homedir+"/Dictionary/Dictionary/dict.txt";
+  QString Qdict_path= QString::fromStdString(dict_path);
+  ifstream g(dict_path);
   if(!g){
       cerr << "Not found"<<endl;
   }
@@ -50,7 +57,7 @@ std::string MainWindow::search_multimap(std::string intake){
         string str = hamming_sug(intake);
         std::string error = intake;
         error.append(" not found, check spelling\n"
-                        "did you mean: ");
+                        "did you mean: \n");
         error.append(str);
         return error;
 
@@ -79,7 +86,8 @@ std::string MainWindow::search_multimap(std::string intake){
          string str = hamming_sug(intake);
          string error = intake;
          error.append(" not found, check spelling\n"
-                     "did you mean: ");
+                     "did you mean: \n"
+                      "");
          error.append(str);
          return error;
     }

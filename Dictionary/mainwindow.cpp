@@ -10,6 +10,12 @@
 #include <QStyle>
 #include <QAbstractButton>
 #include <vector>
+#include <unistd.h>
+#include <sys/types.h>
+#include <pwd.h>
+#include <iostream>
+
+
 
 //std::string
 
@@ -56,13 +62,24 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
    ui(new Ui::MainWindow)
 {
+    std::string homedir;
+    (homedir = getenv("HOME"));
+    if ( homedir.length()== 0) {
+        homedir = getpwuid(getuid())->pw_dir;
+    }
+    std::cerr<< homedir;
 
     ui->setupUi(this);
 
-    ui->pushButton->setIcon(QPixmap("Dictionary/m_glass2.png"));// /home/users/daly2/Dictionary/Dictionary/
+    std::string m_glass=homedir+"/Dictionary/Dictionary/m_glass2.png";
+    QString Qm_glass = QString::fromStdString(m_glass);
+    ui->pushButton->setIcon(QPixmap(Qm_glass));// /home/users/daly2/Dictionary/Dictionary/
     ui->pushButton->setIconSize(QSize(20,20));
 
-    ui->toolButton->setIcon(QPixmap("/home/users/daly2/Dictionary/Dictionary/firefox_return.png"));
+
+    std::string back_button=homedir+"/Dictionary/Dictionary/firefox_return.png";
+    QString Qback_button = QString::fromStdString(back_button);
+    ui->toolButton->setIcon(QPixmap(Qback_button));
     ui->toolButton->setIconSize(QSize(100,100));
 
     ui->textEdit->setReadOnly(true);
