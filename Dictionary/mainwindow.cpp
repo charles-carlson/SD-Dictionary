@@ -67,8 +67,6 @@ MainWindow::MainWindow(QWidget *parent) :
     if ( homedir.length()== 0) {
         homedir = getpwuid(getuid())->pw_dir;
     }
-    std::cerr<< homedir;
-
     ui->setupUi(this);
 
     std::string m_glass=homedir+"/Dictionary/Dictionary/m_glass2.png";
