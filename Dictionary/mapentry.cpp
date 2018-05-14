@@ -7,7 +7,7 @@
 #include <iostream>
 #include<algorithm>
 #include "mainwindow.h"
-
+#include <QString>
 using namespace std;
 
 void print_map(std::multimap<std::string,std::string>& m)
@@ -33,6 +33,23 @@ void MainWindow::create_map()
 
       getline(g,def,'#');
       map1.insert(pair<string, string>(title, def));
+    }
+  g.close();
+
+}
+void MainWindow::SuggestionsList()
+{
+  ifstream g("/home/users/carlso13/Dictionary/Dictionary/dict.txt");
+  if(!g){
+      cerr << "Not found"<<endl;
+  }
+  string title, def;
+
+  while(g.good())
+    {
+      getline(g,title, '#');
+      getline(g,def,'#');
+      titleList << QString::fromStdString(title);
     }
   g.close();
 
