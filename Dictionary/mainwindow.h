@@ -12,7 +12,7 @@
 #include <list>
 #include <vector>
 #include<QTextCursor>
-
+#include <QLineEdit>
 class QLineEdit;
 class QPushButton;
 class QTextEdit;
@@ -36,11 +36,11 @@ class MainWindow : public QMainWindow
 
 public:
     void create_map();
-    void SuggestionsList();
+   // void SuggestionsList();
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 protected:
-    void customEvent(QEvent * event);
+   //void customEvent(QEvent * event);
 
 private slots:
     void search_clicked();
@@ -48,9 +48,9 @@ private slots:
     std::string search_map(const std::string);
     std::string search_multimap(const std::string);
     std::string hamming_sug(const std::string);
-    void lineEdit_change(QString);
+    //void lineEdit_change(QString);
 private:
-
+    //QLineEdit *lineEdit;
     Ui::MainWindow *ui;
     std::vector <std::string> history;
     std::multimap<std::string,std::string> map1;
