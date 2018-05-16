@@ -36,6 +36,7 @@ class MainWindow : public QMainWindow
 
 public:
     void create_map();
+    void create_thes();
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 private slots:
@@ -43,6 +44,7 @@ private slots:
     void return_clicked();
     std::string search_map(const std::string);
     std::string search_multimap(std::string);
+    std::string search_thes(std::string);
     std::string hamming_sug(const std::string);
 
 private:
@@ -55,6 +57,7 @@ private:
 
 
     std::multimap<std::string,std::string> map1;
+    std::multimap<std::string,std::string> thes;
 
 };
 

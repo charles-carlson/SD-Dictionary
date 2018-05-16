@@ -28,6 +28,7 @@ void MainWindow::search_clicked(){
     std::string str = searchVal.toStdString();
 
     std::string defn = search_multimap(str);
+    std::string similar = search_multimap(str);
     QString find_str = QString::fromStdString(str);
     QString find_defn = QString::fromStdString(defn);
 

@@ -30,7 +30,7 @@ void MainWindow::create_map()
   QString Qdict_path= QString::fromStdString(dict_path);
   ifstream g(dict_path);
   if(!g){
-      cerr << "Not found"<<endl;
+      cerr << " Dict Not found"<<endl;
   }
   string title, def;
 
@@ -40,6 +40,29 @@ void MainWindow::create_map()
 
       getline(g,def,'#');
       map1.insert(pair<string, string>(title, def));
+    }
+  g.close();
+
+}
+
+void MainWindow::create_thes()
+{
+  std::string homedir;
+  (homedir = getenv("HOME"));
+  std::string dict_path=homedir+"/Dictionary/Dictionary/newthes.txt";
+  QString Qdict_path= QString::fromStdString(dict_path);
+  ifstream g(dict_path);
+  if(!g){
+      cerr << "thes Not found"<<endl;
+  }
+  string title, def;
+
+  while(g.good())
+    {
+      getline(g,title, '&');
+
+      getline(g,def,'&');
+      thes.insert(pair<string, string>(title, def));
     }
   g.close();
 
@@ -100,6 +123,58 @@ std::string MainWindow::search_multimap(std::string intake){
 
 }
 
+std::string MainWindow::search_thes(std::string intake){
+    intake[0]=toupper(intake[0]);
+    string defn;
+    multimap<string,string>::const_iterator it = thes.lower_bound(intake);
+    multimap<string,string>::const_iterator it2 = thes.upper_bound(intake);
+    if(map1.find(intake)==map1.end())
+    {
+        string str = hamming_sug(intake);
+        std::string error = intake;
+        error.append(" not found, check spelling\n"
+                        "did you mean: \n");
+        error.append(str);
+        return error;
+
+    } else if(it==it2 )
+    {
+        return it->second;
+    }else if(it!=it2)
+    {
+        int i =1;
+        while(it !=it2)
+        {
+            defn.append(to_string(i));
+            defn.append(it->second);
+            it++;
+            //it++;
+            /*
+             * The second it++ returns the correct definions, but out of order,
+             * with only one it returns the definitions in the correct order,
+             * but repeats the list
+             */
+            i++;
+        }
+        return defn;
+    }else
+    {
+         string str = hamming_sug(intake);
+         string error = intake;
+         error.append(" not found, check spelling\n"
+                     "did you mean: \n"
+                      "");
+         error.append(str);
+         return error;
+    }
+     /*
+       std::pair<(std::multimap<std::string,std::string>::iterator),
+               (std::multimap<std::string,std::string>::iterator)>
+               result = map1.equal_range(intake);
+       return result->first;
+     */
+
+}
 
 std::string MainWindow::search_map(const std::string intake){
   std::multimap<std::string,std::string>::iterator iter= map1.begin();
