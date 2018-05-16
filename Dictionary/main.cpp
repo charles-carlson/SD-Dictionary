@@ -13,7 +13,11 @@ int main(int argc, char *argv[])
 
     MainWindow w;
     w.create_map();
+
     w.create_thes();
+
+    //w.SuggestionsList();
+
     w.setWindowTitle("CM^3 Dictionary");
     w.setStyleSheet("QMainWindow {background: ' light blue';}");
     w.show();
