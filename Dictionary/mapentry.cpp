@@ -7,9 +7,14 @@
 #include <iostream>
 #include<algorithm>
 #include "mainwindow.h"
+
 #include <unistd.h>
 #include <sys/types.h>
 #include <pwd.h>
+
+
+#include <QString>
+#include <QDebug>
 
 using namespace std;
 
@@ -44,6 +49,27 @@ void MainWindow::create_map()
   g.close();
 
 }
+/*void MainWindow::SuggestionsList()
+{
+  ifstream g("/home/users/carlso13/Dictionary/Dictionary/dict.txt");
+  if(!g){
+      cerr << "Not found"<<endl;
+  }
+  string title, def;
+  QString newtitle;
+  while(g.good())
+    {
+      getline(g,title, '#');
+
+      getline(g,def,'#');
+
+      titleList.append(QString::fromStdString(title));
+
+    }
+  g.close();
+  //newtitle = titleList[1];
+  //qDebug()<<newtitle;
+}*/
 
 void MainWindow::create_thes()
 {
