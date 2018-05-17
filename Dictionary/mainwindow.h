@@ -53,11 +53,13 @@ private slots:
     std::string search_multimap(std::string);
     std::string search_thes(std::string);
     std::string hamming_sug(const std::string);
+    std::string hammingThes_sug(const std::string);
 
 private:
 
     Ui::MainWindow *ui;
     std::vector <std::string> history;
+    std::vector<std::string> history_thes;
     std::multimap<std::string,std::string> map1;
 
     std::multimap<std::string,std::string> thes;

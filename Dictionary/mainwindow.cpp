@@ -39,16 +39,19 @@ void MainWindow::search_clicked(){
     int counter=0;
 
     ui->textBrowser_2->clear();
+    ui->textBrowser_3->clear();
 
     QString searchVal = ui->lineEdit->text();
     std::string str = searchVal.toStdString();
     std::string defn = search_multimap(str);
-    std::string similar = search_multimap(str);
+    std::string similar = search_thes(str);
     QString find_str = QString::fromStdString(str);
+    QString find_thes = QString::fromStdString(similar);
     term << find_str;
     QString find_defn = QString::fromStdString(defn);
 
     history.push_back(str);
+    history_thes.push_back(similar);
     maxSize++;
 
     for(int i=0;i<term.length();i++){
@@ -56,8 +59,10 @@ void MainWindow::search_clicked(){
             counter++;
     }
 
-    if(counter < 2)
+    if(counter < 2){
         ui->textBrowser->append(find_str);
+        ui->textBrowser_3->append(find_thes);
+    }
     ui->textBrowser_2->append(find_defn);
     ui->textBrowser_2->textCursor();
     scrollbar.setPosition(0);
@@ -71,16 +76,19 @@ void MainWindow::return_clicked(){
 
 
     ui->textBrowser_2->clear();
+    ui->textBrowser_3->clear();
 
     std::string str = history[(maxSize-1) - count];
+    std::string str2 = history_thes[(maxSize-1)-count];
     count++;
     std::string defn = search_multimap(str);
-
+    std::string similar = search_thes(str2);
     QString find_defn = QString::fromStdString(defn);
     QString find_str = QString::fromStdString(str);
-
+    QString find_thes = QString::fromStdString(str2);
 
     ui->textBrowser_2->append(find_defn);
+    ui->textBrowser_3->append(find_thes);
     scrollbar.setPosition(0);
     ui->textBrowser_2->setTextCursor(scrollbar);
 
