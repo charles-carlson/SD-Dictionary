@@ -1,4 +1,4 @@
-/*  /home/users/carlso13/Dictionary/Dictionary/  */
+/*  /home/users/daly2/Dictionary/Dictionary/  */
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include<iostream>
@@ -18,20 +18,22 @@
 #include <QStyle>
 #include <QAbstractButton>
 #include <vector>
+
+#include <unistd.h>
+#include <sys/types.h>
+#include <pwd.h>
+#include <iostream>
+
+
+
+//std::string
+
 #include <QCompleter>
 #include <QEvent>
 #include <QDebug>
 #include <QListView>
-/*class CompleteEvent : public QEvent{
-public:
-    CompleteEvent(QLineEdit *lineEdit) : QEvent(QEvent::User),m_lineEdit(lineEdit){ }
 
-    void complete(){
-        m_lineEdit->completer()->complete();
-    }
- private:
-    QLineEdit *m_lineEdit;
-};*/
+
 
 void MainWindow::search_clicked(){
     int counter=0;
@@ -41,6 +43,7 @@ void MainWindow::search_clicked(){
     QString searchVal = ui->lineEdit->text();
     std::string str = searchVal.toStdString();
     std::string defn = search_multimap(str);
+    std::string similar = search_multimap(str);
     QString find_str = QString::fromStdString(str);
     term << find_str;
     QString find_defn = QString::fromStdString(defn);
@@ -87,8 +90,17 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
    ui(new Ui::MainWindow)
 {
-
+    std::string homedir;
+    (homedir = getenv("HOME"));
+    if ( homedir.length()== 0) {
+        homedir = getpwuid(getuid())->pw_dir;
+    }
     ui->setupUi(this);
+
+
+    std::string m_glass=homedir+"/Dictionary/Dictionary/m_glass2.png";
+    QString Qm_glass = QString::fromStdString(m_glass);
+    ui->pushButton->setIcon(QPixmap(Qm_glass));// /home/users/daly2/Dictionary/Dictionary/
 
 
     std::ifstream g("/home/users/carlso13/Dictionary/Dictionary/dict.txt");
@@ -109,19 +121,26 @@ MainWindow::MainWindow(QWidget *parent) :
     g.close();
 
     QCompleter *autocomplete = new QCompleter(titleList,this);
+    autocomplete->setWrapAround(false);
     autocomplete->setCaseSensitivity(Qt::CaseInsensitive);
-    autocomplete->setModelSorting(QCompleter::CaseSensitivelySortedModel);
-    autocomplete->setCompletionMode(QCompleter::UnfilteredPopupCompletion);
+    autocomplete->setModelSorting(QCompleter::CaseInsensitivelySortedModel);
+    autocomplete->setCompletionMode(QCompleter::PopupCompletion);
 
     ui->lineEdit->setCompleter(autocomplete);
 
-    ui->pushButton->setIcon(QPixmap("/home/users/carlso13/Dictionary/Dictionary/m_glass2.png"));
+
+
     ui->pushButton->setIconSize(QSize(20,20));
 
-    ui->toolButton->setIcon(QPixmap("/home/users/carlso13/Dictionary/Dictionary/firefox_return.png"));
+
+    std::string back_button=homedir+"/Dictionary/Dictionary/firefox_return.png";
+    QString Qback_button = QString::fromStdString(back_button);
+    ui->toolButton->setIcon(QPixmap(Qback_button));
     ui->toolButton->setIconSize(QSize(100,100));
 
-
+    ui->label->setText("History");
+    ui->label_2->setText("Dictionary");
+    ui->label_3->setText("Thesaurus");
 
     ui->pushButton->setText("Search");
 
@@ -137,26 +156,17 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->textBrowser_2->setStyleSheet("border: 1px solid;"
                                   "border-radius:5px;"
                                   "background-color: palette(base);");
+    ui->textBrowser_3->setStyleSheet("border: 1px solid;"
+                                  "border-radius:5px;"
+                                  "background-color: palette(base);");
 
-    //connect(lineEdit, SIGNAL(textChanged(QString)), SLOT(lineEdit_change(QString)));
+
     connect (ui->pushButton, SIGNAL(clicked()),this,SLOT(search_clicked()));
     connect (ui->toolButton, SIGNAL(clicked()),this,SLOT(return_clicked()));
     connect(ui->lineEdit,SIGNAL(returnPressed()),ui->pushButton,SIGNAL(clicked()));
 
 }
-/*void MainWindow::customEvent(QEvent *event){
 
-    QMainWindow::customEvent(event);
-    if(event->type()==QEvent::User)
-        ((CompleteEvent *)event)->complete();
-}
-void MainWindow::lineEdit_change(QString keyword){
-
-    if(keyword.length()==0)
-        QApplication::postEvent(this, new CompleteEvent((QLineEdit *)sender()));
-
-
-}*/
 
 MainWindow::~MainWindow()
 {
