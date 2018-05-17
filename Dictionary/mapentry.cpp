@@ -49,27 +49,7 @@ void MainWindow::create_map()
   g.close();
 
 }
-/*void MainWindow::SuggestionsList()
-{
-  ifstream g("/home/users/carlso13/Dictionary/Dictionary/dict.txt");
-  if(!g){
-      cerr << "Not found"<<endl;
-  }
-  string title, def;
-  QString newtitle;
-  while(g.good())
-    {
-      getline(g,title, '#');
 
-      getline(g,def,'#');
-
-      titleList.append(QString::fromStdString(title));
-
-    }
-  g.close();
-  //newtitle = titleList[1];
-  //qDebug()<<newtitle;
-}*/
 
 void MainWindow::create_thes()
 {
@@ -90,6 +70,7 @@ void MainWindow::create_thes()
       getline(g,def,'&');
       thes.insert(pair<string, string>(title, def));
     }
+
   g.close();
 
 }
@@ -150,16 +131,15 @@ std::string MainWindow::search_multimap(std::string intake){
 }
 
 std::string MainWindow::search_thes(std::string intake){
-    intake[0]=toupper(intake[0]);
+    intake[0]=tolower(intake[0]);
     string defn;
     multimap<string,string>::const_iterator it = thes.lower_bound(intake);
     multimap<string,string>::const_iterator it2 = thes.upper_bound(intake);
-    if(map1.find(intake)==map1.end())
+    if(thes.find(intake)==thes.end())
     {
         string str = hamming_sug(intake);
         std::string error = intake;
-        error.append(" not found, check spelling\n"
-                        "did you mean: \n");
+        error.append(" No synonyms for the word searched.\n");
         error.append(str);
         return error;
 
@@ -264,3 +244,47 @@ std::string MainWindow::hamming_sug(const string intake){
     }
     return str;
 }
+std::string MainWindow::hammingThes_sug(const string intake){
+    string str;
+    string oldWord;
+    int oldDistance=100;
+    for(auto& p : thes)
+    {
+        int distance=100;
+        if(p.first.length())//==intake.length())
+        {
+            for(unsigned int i=0; i<intake.length(); i++)
+            {
+                if(intake[i]==p.first[i])
+                    distance--;
+            }
+            if(p.first.length()>intake.length())
+                distance+=p.first.length()-intake.length();
+
+        }
+        if(distance<oldDistance)//-(intake.length()-1))
+        {
+            str.clear();
+            str=p.first;
+            oldWord=p.first;
+            oldDistance=distance;
+            /*
+                for(int i=0;i<100-oldDistance;i++)
+                {
+                    if(strap)
+                }
+                */
+        }
+        if(oldDistance==distance)
+        {
+            if(p.first!=oldWord)
+            {
+                str.append(", ");
+                str.append(p.first);
+                oldWord=p.first;
+            }
+        }
+    }
+    return str;
+}
+

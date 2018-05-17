@@ -32,32 +32,26 @@
 #include <QEvent>
 #include <QDebug>
 #include <QListView>
-/*class CompleteEvent : public QEvent{
-public:
-    CompleteEvent(QLineEdit *lineEdit) : QEvent(QEvent::User),m_lineEdit(lineEdit){ }
 
-    void complete(){
-        m_lineEdit->completer()->complete();
-    }
- private:
-    QLineEdit *m_lineEdit;
-};*/
 
 
 void MainWindow::search_clicked(){
     int counter=0;
 
     ui->textBrowser_2->clear();
+    ui->textBrowser_3->clear();
 
     QString searchVal = ui->lineEdit->text();
     std::string str = searchVal.toStdString();
     std::string defn = search_multimap(str);
-    std::string similar = search_multimap(str);
+    std::string similar = search_thes(str);
     QString find_str = QString::fromStdString(str);
+    QString find_thes = QString::fromStdString(similar);
     term << find_str;
     QString find_defn = QString::fromStdString(defn);
 
     history.push_back(str);
+    history_thes.push_back(similar);
     maxSize++;
 
     for(int i=0;i<term.length();i++){
@@ -65,8 +59,10 @@ void MainWindow::search_clicked(){
             counter++;
     }
 
-    if(counter < 2)
+    if(counter < 2){
         ui->textBrowser->append(find_str);
+        ui->textBrowser_3->append(find_thes);
+    }
     ui->textBrowser_2->append(find_defn);
     ui->textBrowser_2->textCursor();
     scrollbar.setPosition(0);
@@ -80,16 +76,19 @@ void MainWindow::return_clicked(){
 
 
     ui->textBrowser_2->clear();
+    ui->textBrowser_3->clear();
 
     std::string str = history[(maxSize-1) - count];
+    std::string str2 = history_thes[(maxSize-1)-count];
     count++;
     std::string defn = search_multimap(str);
-
+    std::string similar = search_thes(str2);
     QString find_defn = QString::fromStdString(defn);
     QString find_str = QString::fromStdString(str);
-
+    QString find_thes = QString::fromStdString(str2);
 
     ui->textBrowser_2->append(find_defn);
+    ui->textBrowser_3->append(find_thes);
     scrollbar.setPosition(0);
     ui->textBrowser_2->setTextCursor(scrollbar);
 
@@ -111,10 +110,10 @@ MainWindow::MainWindow(QWidget *parent) :
     QString Qm_glass = QString::fromStdString(m_glass);
     ui->pushButton->setIcon(QPixmap(Qm_glass));// /home/users/daly2/Dictionary/Dictionary/
 
-    std::string sugg_path = homedir+"/Dictionary/Dictionary/dict.txt";
-    std::ifstream g(sugg_path);//homedir+"Dictionary/Dictionary/dict.txt");//"/home/users/carlso13/Dictionary/Dictionary/dict.txt");
+
+    std::ifstream g("/home/users/carlso13/Dictionary/Dictionary/dict.txt");
     if(!g){
-        std::cerr << "suggestions Not found"<<endl;
+        std::cerr << "Not found"<<endl;
     }
     std::string title, def;
     QString newtitle;
@@ -130,13 +129,14 @@ MainWindow::MainWindow(QWidget *parent) :
     g.close();
 
     QCompleter *autocomplete = new QCompleter(titleList,this);
+    autocomplete->setWrapAround(false);
     autocomplete->setCaseSensitivity(Qt::CaseInsensitive);
-    autocomplete->setModelSorting(QCompleter::CaseSensitivelySortedModel);
-    autocomplete->setCompletionMode(QCompleter::UnfilteredPopupCompletion);
+    autocomplete->setModelSorting(QCompleter::CaseInsensitivelySortedModel);
+    autocomplete->setCompletionMode(QCompleter::PopupCompletion);
 
     ui->lineEdit->setCompleter(autocomplete);
 
-    //ui->pushButton->setIcon(QPixmap("/home/users/carlso13/Dictionary/Dictionary/m_glass2.png"));
+
 
     ui->pushButton->setIconSize(QSize(20,20));
 
@@ -146,7 +146,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->toolButton->setIcon(QPixmap(Qback_button));
     ui->toolButton->setIconSize(QSize(100,100));
 
-
+    ui->label->setText("History");
+    ui->label_2->setText("Dictionary");
+    ui->label_3->setText("Thesaurus");
 
     ui->pushButton->setText("Search");
 
@@ -162,26 +164,17 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->textBrowser_2->setStyleSheet("border: 1px solid;"
                                   "border-radius:5px;"
                                   "background-color: palette(base);");
+    ui->textBrowser_3->setStyleSheet("border: 1px solid;"
+                                  "border-radius:5px;"
+                                  "background-color: palette(base);");
 
-    //connect(lineEdit, SIGNAL(textChanged(QString)), SLOT(lineEdit_change(QString)));
+
     connect (ui->pushButton, SIGNAL(clicked()),this,SLOT(search_clicked()));
     connect (ui->toolButton, SIGNAL(clicked()),this,SLOT(return_clicked()));
     connect(ui->lineEdit,SIGNAL(returnPressed()),ui->pushButton,SIGNAL(clicked()));
 
 }
-/*void MainWindow::customEvent(QEvent *event){
 
-    QMainWindow::customEvent(event);
-    if(event->type()==QEvent::User)
-        ((CompleteEvent *)event)->complete();
-}
-void MainWindow::lineEdit_change(QString keyword){
-
-    if(keyword.length()==0)
-        QApplication::postEvent(this, new CompleteEvent((QLineEdit *)sender()));
-
-
-}*/
 
 MainWindow::~MainWindow()
 {

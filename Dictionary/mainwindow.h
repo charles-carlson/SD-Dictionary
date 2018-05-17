@@ -39,12 +39,12 @@ public:
 
     void create_thes();
 
-   // void SuggestionsList();
+
 
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-protected:
-   //void customEvent(QEvent * event);
+
+
 
 private slots:
     void search_clicked();
@@ -53,11 +53,13 @@ private slots:
     std::string search_multimap(std::string);
     std::string search_thes(std::string);
     std::string hamming_sug(const std::string);
-    //void lineEdit_change(QString);
+    std::string hammingThes_sug(const std::string);
+
 private:
-    //QLineEdit *lineEdit;
+
     Ui::MainWindow *ui;
     std::vector <std::string> history;
+    std::vector<std::string> history_thes;
     std::multimap<std::string,std::string> map1;
 
     std::multimap<std::string,std::string> thes;
