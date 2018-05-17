@@ -111,10 +111,10 @@ MainWindow::MainWindow(QWidget *parent) :
     QString Qm_glass = QString::fromStdString(m_glass);
     ui->pushButton->setIcon(QPixmap(Qm_glass));// /home/users/daly2/Dictionary/Dictionary/
 
-
-    std::ifstream g("/home/users/carlso13/Dictionary/Dictionary/dict.txt");
+    std::string sugg_path = homedir+"/Dictionary/Dictionary/dict.txt";
+    std::ifstream g(sugg_path);//homedir+"Dictionary/Dictionary/dict.txt");//"/home/users/carlso13/Dictionary/Dictionary/dict.txt");
     if(!g){
-        std::cerr << "Not found"<<endl;
+        std::cerr << "suggestions Not found"<<endl;
     }
     std::string title, def;
     QString newtitle;
