@@ -18,6 +18,7 @@
 
 using namespace std;
 
+//function to test if Dictionary is reading in, prints to cerr
 void print_map(std::multimap<std::string,std::string>& m)
 {
 
@@ -27,10 +28,13 @@ void print_map(std::multimap<std::string,std::string>& m)
   cout << "}\n";
 
 }
+//fills the dictionary multimap from the .txt file
 void MainWindow::create_map()
 {
+    //These two lines get the home directory, so the program is more portable
   std::string homedir;
   (homedir = getenv("HOME"));
+  //adding the path relative to home for the Dictionary file
   std::string dict_path=homedir+"/Dictionary/Dictionary/dict.txt";
   QString Qdict_path= QString::fromStdString(dict_path);
   ifstream g(dict_path);
@@ -38,7 +42,7 @@ void MainWindow::create_map()
       cerr << " Dict Not found"<<endl;
   }
   string title, def;
-
+//reading in, then pairing key and value, then inserting into the multimap
   while(g.good())
     {
       getline(g,title, '#');
@@ -50,9 +54,10 @@ void MainWindow::create_map()
 
 }
 
-
+//fills the thesis multimap from its .txt
 void MainWindow::create_thes()
 {
+    //Two lines to find the home directory, then appending the relative path and opening the file
   std::string homedir;
   (homedir = getenv("HOME"));
   std::string dict_path=homedir+"/Dictionary/Dictionary/newthes.txt";
@@ -62,7 +67,7 @@ void MainWindow::create_thes()
       cerr << "thes Not found"<<endl;
   }
   string title, def;
-
+//reading in the file, pairing the key and value, and inserting into the multimap
   while(g.good())
     {
       getline(g,title, '&');
@@ -75,12 +80,15 @@ void MainWindow::create_thes()
 
 }
 
-
+//searches the dictionary multimap for an input, returns the definitions or returns some suggestions if the entry isn't found
 std::string MainWindow::search_multimap(std::string intake){
+    //converts the first letter to upper case if it isnt already
     intake[0]=toupper(intake[0]);
     string defn;
+    //finds the first and last occurances of the word in the dictionary
     multimap<string,string>::const_iterator it = map1.lower_bound(intake);
     multimap<string,string>::const_iterator it2 = map1.upper_bound(intake);
+    //checks if the word was found in the multimap, and suggests alternatives if it wast't
     if(map1.find(intake)==map1.end())
     {
 
@@ -93,9 +101,11 @@ std::string MainWindow::search_multimap(std::string intake){
 
     } else if(it==it2 )
     {
+        //checks if there is only one definition, and returns it if true
         return it->second;
     }else if(it!=it2)
     {
+        //checks for multiple definitions, and returns all of them, with an index
         int i =1;
         while(it !=it2)
         {
@@ -113,6 +123,7 @@ std::string MainWindow::search_multimap(std::string intake){
         return defn;
     }else
     {
+        //just in case the above conditions fail, it will suggest alternatives
          string str = hamming_sug(intake);
          string error = intake;
          error.append(" not found, check spelling\n"
@@ -129,7 +140,7 @@ std::string MainWindow::search_multimap(std::string intake){
      */
 
 }
-
+//searhes the thesaurus multimap for an input, returns the definitions or returns some suggestions if the entry isn't found
 std::string MainWindow::search_thes(std::string intake){
     intake[0]=tolower(intake[0]);
     string defn;
@@ -181,7 +192,7 @@ std::string MainWindow::search_thes(std::string intake){
      */
 
 }
-
+//left over from the origional simple map, searches for a word in map1 and returns the definiton, only returns one definiton from a multimap
 std::string MainWindow::search_map(const std::string intake){
   std::multimap<std::string,std::string>::iterator iter= map1.begin();
   iter=map1.find(intake);
@@ -200,7 +211,7 @@ std::string MainWindow::search_map(const std::string intake){
    return error;
   }
 }
-
+//Suggestion function for dictionary, returns words similar to the input that are in the dictionary, based on hamming codes
 std::string MainWindow::hamming_sug(const string intake){
     string str;
     string oldWord;
@@ -219,6 +230,7 @@ std::string MainWindow::hamming_sug(const string intake){
                 distance+=p.first.length()-intake.length();
 
         }
+        //checks if the new word is the closest match to what the user input, and clears the string if it is
         if(distance<oldDistance)//-(intake.length()-1))
         {
             str.clear();
@@ -232,6 +244,7 @@ std::string MainWindow::hamming_sug(const string intake){
                 }
                 */
         }
+        //checks that it is not the same as the previous word and adds the new word to the end of the string
         if(oldDistance==distance)
         {
             if(p.first!=oldWord)
@@ -244,6 +257,7 @@ std::string MainWindow::hamming_sug(const string intake){
     }
     return str;
 }
+//Suggestion function for thesaurus, returns words similar to the input that are in the thesaurus, based on hamming codes
 std::string MainWindow::hammingThes_sug(const string intake){
     string str;
     string oldWord;
